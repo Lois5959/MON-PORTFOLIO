@@ -227,9 +227,11 @@ a { color: inherit; }
   border: 1px solid var(--line-2);
   background: var(--surface);
   color: var(--fg);
-  font-family: var(--font-mono);
-  font-size: 15px;
+  font-weight: 600;
+  font-size: 16px;
 }
+.btn-dl { border: 1px solid var(--accent); background: transparent; color: var(--accent); font-weight: 700; }
+.btn-dl:hover { background: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
 .btn-ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
 
 .term {
@@ -731,8 +733,8 @@ section { scroll-margin-top: 80px; }
       <p class="typed-line" aria-label="DevOps et Cloud, Epitech Lille"><b aria-hidden="true">&gt;</b> <span id="typed" aria-hidden="true">DevOps &amp; Cloud · Epitech Lille</span><span class="cursor" aria-hidden="true"></span></p>
       <div class="btns">
         <a class="btn btn-primary" href="#projets">Voir mes projets <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        <button class="btn btn-ghost" type="button" data-open-cv>$ cat cv.pdf</button>
-        <a class="btn btn-ghost" href="assets/CV_Lois-Elie_Ekollo.pdf" download="CV_Lois-Elie_Ekollo.pdf">$ wget cv.pdf <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><polyline points="7 11 12 16 17 11"/><line x1="5" y1="20" x2="19" y2="20"/></svg></a>
+        <button class="btn btn-ghost" type="button" data-open-cv>Voir mon CV</button>
+        <a class="btn btn-dl" href="assets/CV_Lois-Elie_Ekollo.pdf" download="CV_Lois-Elie_Ekollo.pdf">Télécharger mon CV (PDF) <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><polyline points="7 11 12 16 17 11"/><line x1="5" y1="20" x2="19" y2="20"/></svg></a>
       </div>
     </div>
     <figure class="term" id="term">
@@ -986,7 +988,7 @@ section { scroll-margin-top: 80px; }
 
 <div class="modal" id="cv-modal" role="dialog" aria-modal="true" aria-labelledby="cv-title" hidden>
   <div class="modal-win">
-    <div class="term-bar"><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i><span id="cv-title">lois@epitech: ~/cv.pdf</span>
+    <div class="term-bar"><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i><span id="cv-title">CV · Loïs-Elie Ekollo</span>
       <button class="modal-close" type="button" id="cv-close" aria-label="Fermer le CV"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
     </div>
     <div class="modal-body"><img src="assets/cv.jpg" alt="CV de Loïs-Elie Ekollo, étudiant DevOps et Cloud" width="1300" height="1839"></div>
