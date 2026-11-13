@@ -530,6 +530,30 @@ section { scroll-margin-top: 80px; }
 @keyframes qpulse { 0%, 100% { text-shadow: 0 0 22px var(--glow); transform: scale(1); } 50% { text-shadow: 0 0 44px var(--accent); transform: scale(1.06); } }
 @keyframes pop { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: none; } }
 
+.others dt a { color: var(--accent); text-decoration: none; }
+.others dt a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* En dehors du code */
+.hobbies { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.hobby { position: relative; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 26px 22px 24px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; }
+.hobby::before { content: ""; position: absolute; inset: auto -30% -60% auto; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(var(--glow-soft), transparent 70%); opacity: 0; transition: opacity 0.3s; }
+.hobby:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 0 40px var(--glow-soft); }
+.hobby:hover::before { opacity: 1; }
+.hobby h3 { margin: 0; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; }
+.hobby p { margin: 0; font-size: 15px; color: var(--muted); }
+.hb-emoji { display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center; font-size: 38px; border-radius: 16px; background: var(--chip); transform-origin: center bottom; }
+.hobbies.is-listed .hobby { animation: pop 0.5s ease-out both; animation-delay: calc(var(--i) * 90ms); }
+.hb-boxe:hover .hb-emoji { animation: hb-punch 0.5s ease-out 2; }
+.hb-basket:hover .hb-emoji { animation: hb-bounce 0.55s cubic-bezier(.3,0,.4,1) 3; }
+.hb-cine:hover .hb-emoji { animation: hb-clap 0.35s ease-in-out 3; }
+.hb-voyage:hover .hb-emoji { animation: hb-fly 1.1s ease-in-out; }
+.hb-rando:hover .hb-emoji { animation: hb-walk 0.5s ease-in-out 3; }
+@keyframes hb-punch { 0%, 100% { transform: translateX(0) rotate(0); } 35% { transform: translateX(16px) rotate(-12deg) scale(1.12); } 60% { transform: translateX(-4px); } }
+@keyframes hb-bounce { 0%, 100% { transform: translateY(0) scaleY(1); } 45% { transform: translateY(-22px); } 90% { transform: translateY(0) scaleY(0.82) scaleX(1.12); } }
+@keyframes hb-clap { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-14deg) scale(1.08); } }
+@keyframes hb-fly { 0% { transform: translate(0, 0) rotate(0); } 45% { transform: translate(90px, -30px) rotate(-8deg); opacity: 0; } 46% { transform: translate(-90px, 20px); opacity: 0; } 100% { transform: translate(0, 0); opacity: 1; } }
+@keyframes hb-walk { 0%, 100% { transform: translateX(0) rotate(0); } 25% { transform: translateX(6px) rotate(10deg); } 75% { transform: translateX(-6px) rotate(-6deg); } }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; transition-duration: 0.001ms !important; }
@@ -541,6 +565,11 @@ section { scroll-margin-top: 80px; }
   .card h3 { font-size: 26px; }
   .others div { padding: 16px 18px; }
   .others dt { min-width: 0; }
+  .hobbies { gap: 12px; }
+  .hobby { padding: 18px 16px; gap: 8px; }
+  .hobby h3 { font-size: 19px; }
+  .hobby p { font-size: 14px; }
+  .hb-emoji { width: 52px; height: 52px; line-height: 52px; font-size: 30px; }
   .date { width: auto; }
   .links { flex-wrap: wrap; }
 }
@@ -704,6 +733,94 @@ section { scroll-margin-top: 80px; }
 @keyframes wz-bar { from { opacity: 1; transform: scaleY(1); } to { opacity: 1; transform: scaleY(0); } }
 @keyframes wz-grow { from { opacity: 1; transform: scaleY(0); } to { opacity: 1; transform: scaleY(1); } }
 @keyframes wz-toast { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: none; } }
+
+/* Codename : questions tapées, attaque refusée, bouclier qui tient */
+.cn { background: #070A0E; }
+.cn-cam { transform-origin: 40% 55%; }
+.cn-cover, .cn-deny, .cn-ok, .cn-ring, .cn-caret { opacity: 0; }
+.cn-cover { transform-box: fill-box; transform-origin: right center; }
+.cn-ring { transform-box: fill-box; transform-origin: center; }
+.card:hover .cn-cam, .card.is-booting .cn-cam { animation: cn-cam 3.6s ease-out both; }
+.card:hover .cn-cover, .card.is-booting .cn-cover { animation: cn-type var(--t) steps(var(--s)) var(--d) both; }
+.card:hover .cn-caret, .card.is-booting .cn-caret { animation: cn-caret 0.5s steps(1) 0s 2; }
+.card:hover .cn-deny, .card.is-booting .cn-deny { animation: cn-flash 0.9s ease-out 2.35s forwards; }
+.card:hover .cn-ring-red, .card.is-booting .cn-ring-red { animation: kx-ring 1s ease-out 2.3s 2; }
+.card:hover .cn-ok, .card.is-booting .cn-ok { animation: cn-flash 0.9s ease-out 3.2s forwards; }
+.card:hover .cn-ring-green, .card.is-booting .cn-ring-green { animation: kx-ring 1.1s ease-out 3.2s; }
+@keyframes cn-cam { from { transform: scale(1); } to { transform: scale(1.04); } }
+@keyframes cn-type { from { opacity: 1; transform: scaleX(1); } to { opacity: 1; transform: scaleX(0); } }
+@keyframes cn-caret { 0% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes cn-flash { 0% { opacity: 0.45; } 100% { opacity: 0; } }
+
+/* TARDIS : changement d'année, indicateurs recalculés, barres qui montent, prédiction */
+.td { background: #FFFFFF; }
+.td-cam { transform-origin: 60% 50%; }
+.td-cam img { object-position: 50% 0; }
+.td-select, .td-kpi, .td-bars, .td-toast, .td-cursor { opacity: 0; }
+.td-kpi { transform-box: fill-box; transform-origin: right center; }
+.td-bars { transform-box: fill-box; transform-origin: center top; }
+.td-toast { transform-box: fill-box; transform-origin: right center; }
+.td-t0 { font-size: 34px; }
+.td-t1 { font: 700 24px var(--font-sans); fill: #92400E; }
+.td-t2 { font: 400 18px var(--font-sans); fill: #78350F; }
+.card:hover .td-cam, .card.is-booting .td-cam { animation: jb-cam 3s ease-out both; }
+.card:hover .td-cursor, .card.is-booting .td-cursor { animation: td-cursor 1s cubic-bezier(.3,.7,.2,1) both; }
+.card:hover .td-select, .card.is-booting .td-select { animation: cn-flash 0.8s ease-out 0.5s forwards; }
+.card:hover .td-kpi, .card.is-booting .td-kpi { animation: cn-type 0.45s steps(6) var(--d) both; }
+.card:hover .td-bars, .card.is-booting .td-bars { animation: wz-bar 0.8s cubic-bezier(.3,.7,.2,1) var(--d) both; }
+.card:hover .td-toast, .card.is-booting .td-toast { animation: wz-toast 0.5s cubic-bezier(.2,.9,.3,1.15) 2.1s both; }
+@keyframes td-cursor {
+  0% { opacity: 0; transform: translate(520px, 520px); } 15% { opacity: 1; }
+  45% { transform: translate(300px, 192px); } 55% { transform: translate(300px, 192px) scale(0.85); }
+  65% { transform: translate(300px, 192px) scale(1); } 85% { opacity: 1; }
+  100% { opacity: 0; transform: translate(300px, 192px); }
+}
+
+/* Bookworm : commandes tapées, thèmes repérés dans le nuage */
+.bw { background: #0D1117; }
+.bw-cam { transform-origin: 50% 30%; }
+.bw-cover, .bw-word { opacity: 0; }
+.bw-cover { transform-box: fill-box; transform-origin: right center; }
+.bw-word { transform-box: fill-box; transform-origin: center; }
+.card:hover .bw-cam, .card.is-booting .bw-cam { animation: bw-cam 3.2s ease-out both; }
+.card:hover .bw-cover, .card.is-booting .bw-cover { animation: cn-type var(--t) steps(var(--s)) var(--d) both; }
+.card:hover .bw-word, .card.is-booting .bw-word { animation: bw-word 1.3s ease-out var(--d) both; }
+@keyframes bw-cam { from { transform: scale(1); } to { transform: scale(1.05); } }
+@keyframes bw-word { 0% { opacity: 0; transform: scale(0.7); } 25% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.12); } }
+
+/* Gym Connect : rejoindre une séance, la conversation s'ouvre */
+.gc { background: #0F172A; }
+.gc-cam { transform-origin: 58% 45%; }
+.gc-press, .gc-ripple, .gc-chat, .gc-me, .gc-dots, .gc-him, .gc-cursor { opacity: 0; }
+.gc-chat, .gc-me, .gc-him { transform-box: fill-box; }
+.gc-chat { transform-origin: center bottom; }
+.gc-me { transform-origin: right center; }
+.gc-him { transform-origin: left center; }
+.gc-dot, .gc-ripple { transform-box: fill-box; transform-origin: center; }
+.gc-ini { font: 700 22px var(--font-sans); fill: #FFFFFF; }
+.gc-name { font: 700 26px var(--font-sans); fill: #FFFFFF; }
+.gc-sub { font: 400 18px var(--font-sans); fill: #C7D2FE; }
+.gc-txt { font: 500 22px var(--font-sans); fill: #111827; }
+.gc-txt-me { fill: #FFFFFF; }
+.gc-ph { font: 400 20px var(--font-sans); fill: #9CA3AF; }
+.card:hover .gc-cam, .card.is-booting .gc-cam { animation: jb-cam 3.2s ease-out both; }
+.card:hover .gc-cursor, .card.is-booting .gc-cursor { animation: gc-cursor 1.1s cubic-bezier(.3,.7,.2,1) both; }
+.card:hover .gc-press, .card.is-booting .gc-press { animation: jb-press 0.4s ease-out 0.6s both; }
+.card:hover .gc-ripple, .card.is-booting .gc-ripple { animation: jb-ripple 0.5s ease-out 0.6s forwards; }
+.card:hover .gc-chat, .card.is-booting .gc-chat { animation: gc-chat 0.5s cubic-bezier(.2,.9,.3,1.1) 1s both; }
+.card:hover .gc-me, .card.is-booting .gc-me { animation: jb-pop 0.4s cubic-bezier(.2,.9,.3,1.3) 1.5s both; }
+.card:hover .gc-dots, .card.is-booting .gc-dots { animation: gc-dots 1s linear 2s both; }
+.card:hover .gc-dot, .card.is-booting .gc-dot { animation: gc-dot 0.5s ease-in-out calc(2s + var(--d)) 2; }
+.card:hover .gc-him, .card.is-booting .gc-him { animation: jb-pop 0.4s cubic-bezier(.2,.9,.3,1.3) 3s both; }
+@keyframes gc-cursor {
+  0% { opacity: 0; transform: translate(1250px, 720px); } 15% { opacity: 1; }
+  50% { transform: translate(912px, 392px); } 58% { transform: translate(912px, 392px) scale(0.85); }
+  66% { transform: translate(912px, 392px) scale(1); } 85% { opacity: 1; }
+  100% { opacity: 0; transform: translate(912px, 392px); }
+}
+@keyframes gc-chat { from { opacity: 0; transform: translateY(40px) scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes gc-dots { 0%, 99% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes gc-dot { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 </style>
 </head>
 <body>
@@ -718,6 +835,7 @@ section { scroll-margin-top: 80px; }
       <a href="#stack">stack</a>
       <a href="#projets">projets</a>
       <a href="#parcours">parcours</a>
+      <a href="#loisirs">loisirs</a>
       <a href="#contact">contact</a>
     </nav>
     <a class="nav-cta" href="#contact">$ contact</a>
@@ -816,7 +934,7 @@ section { scroll-margin-top: 80px; }
           <p class="role">Responsable infra · équipe de 3</p>
           <p class="desc">Stack d'observabilité et de détection sous Docker Compose : Wazuh (SIEM), Prometheus et Grafana. Contrat d'interface infra et volet DevSecOps.</p>
           <ul class="tags"><li>compose</li><li>wazuh</li><li>prometheus</li><li>grafana</li></ul>
-          <a class="more" href="https://github.com/Lois5959" target="_blank" rel="noopener">voir sur GitHub ↗</a>
+          <a class="more" href="https://github.com/Lois5959/SENTINEL-X" target="_blank" rel="noopener">voir sur GitHub ↗</a>
         </div>
       </article>
       <article class="card" data-i="1">
@@ -856,7 +974,7 @@ section { scroll-margin-top: 80px; }
           <p class="role">Projet d'équipe</p>
           <p class="desc">Agrégateur d'offres d'emploi branché sur l'API WeLoveDevs : front, API REST et base sous Docker Compose, CI GitHub Actions, authentification sécurisée.</p>
           <ul class="tags"><li>fullstack</li><li>compose</li><li>github actions</li><li>sécurité</li></ul>
-          <a class="more" href="https://github.com/Lois5959" target="_blank" rel="noopener">voir sur GitHub ↗</a>
+          <a class="more" href="https://github.com/Lois5959/job-aggregator" target="_blank" rel="noopener">voir sur GitHub ↗</a>
         </div>
       </article>
       <article class="card" data-i="0">
@@ -900,7 +1018,7 @@ section { scroll-margin-top: 80px; }
           <p class="role">Développeur backend</p>
           <p class="desc">API REST en FastAPI avec base PostgreSQL, l'ensemble conteneurisé avec Docker.</p>
           <ul class="tags"><li>fastapi</li><li>postgresql</li><li>docker</li></ul>
-          <a class="more" href="https://github.com/Lois5959" target="_blank" rel="noopener">voir sur GitHub ↗</a>
+          <a class="more" href="https://github.com/Lois5959/KAIJU" target="_blank" rel="noopener">voir sur GitHub ↗</a>
         </div>
       </article>
       <article class="card" data-i="1">
@@ -937,15 +1055,130 @@ section { scroll-margin-top: 80px; }
           <p class="role">Binôme · code &amp; build</p>
           <p class="desc">Jeu 2D en Java (LibGDX) : moteur de combat et système d'XP, Makefile (build, test, run) et Dockerfile de compilation et de tests.</p>
           <ul class="tags"><li>java</li><li>libgdx</li><li>make</li><li>docker</li></ul>
-          <a class="more" href="https://github.com/Lois5959" target="_blank" rel="noopener">voir sur GitHub ↗</a>
+          <a class="more" href="https://github.com/Lois5959/2D-GAME" target="_blank" rel="noopener">voir sur GitHub ↗</a>
+        </div>
+      </article>
+      <article class="card" data-i="0">
+        <div class="illus game cn" role="img" aria-label="Terminal Ollama de l'agent Codename : une question normale reçoit une réponse, une attaque reçoit ACCESS DENIED, le bon mot de passe donne le codeword">
+  <div class="game-cam cn-cam">
+    <img src="assets/codename.webp" alt="" width="1600" height="900" decoding="async">
+    <svg class="game-fx" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+      <rect class="cn-cover" x="106" y="357" width="972" height="49" fill="#0D1218" style="--d:0.15s;--t:0.55s;--s:18"/><rect class="cn-cover" x="106" y="406" width="972" height="49" fill="#0D1218" style="--d:0.75s;--t:0.45s;--s:16"/><rect class="cn-cover" x="106" y="455" width="972" height="49" fill="#0D1218" style="--d:1.25s;--t:0.75s;--s:26"/><rect class="cn-cover" x="106" y="504" width="972" height="49" fill="#0D1218" style="--d:2.1s;--t:0.25s;--s:6"/><rect class="cn-cover" x="106" y="553" width="972" height="49" fill="#0D1218" style="--d:2.55s;--t:0.35s;--s:10"/><rect class="cn-cover" x="106" y="602" width="972" height="49" fill="#0D1218" style="--d:3.05s;--t:0.2s;--s:4"/>
+      <rect class="cn-deny" x="100" y="506" width="246" height="45" rx="8" fill="#FF5D73"/>
+      <rect class="cn-ok" x="100" y="604" width="128" height="45" rx="8" fill="#4ADE80"/>
+      <circle class="cn-ring cn-ring-red" cx="1350" cy="289" r="118" fill="none" stroke="#FF5D73" stroke-width="6"/>
+      <circle class="cn-ring cn-ring-green" cx="1350" cy="289" r="118" fill="none" stroke="#4ADE80" stroke-width="6"/>
+      <rect class="cn-caret" x="112" y="364" width="14" height="34" fill="#4ADE80"/>
+    </svg>
+  </div>
+</div>
+        <div class="card-body">
+          <div class="card-top"><span>codename</span><span class="status">● Up (healthy)</span></div>
+          <h3>Codename</h3>
+          <p class="role">Projet solo · sécurité des LLM</p>
+          <p class="desc">Agent Ollama qui garde un codeword derrière un mot de passe, durci jusqu'à la v10 contre la prompt injection, et 5 attaques d'extraction contre les agents des autres.</p>
+          <ul class="tags"><li>ollama</li><li>llm security</li><li>prompt injection</li><li>python</li></ul>
+          <a class="more" href="https://github.com/Lois5959/CODENAME" target="_blank" rel="noopener">voir sur GitHub ↗</a>
+        </div>
+      </article>
+      <article class="card" data-i="1">
+        <div class="illus game td" role="img" aria-label="Capture du dashboard TARDIS : retard moyen, nombre de trajets, ponctualité et graphiques des retards SNCF en 2024">
+  <div class="game-cam td-cam">
+    <img src="assets/tardis.webp" alt="" width="1600" height="900" decoding="async">
+    <svg class="game-fx" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+      <rect class="td-select" x="38" y="173" width="300" height="49" rx="8" fill="none" stroke="#FF4B4B" stroke-width="4"/>
+      <rect class="td-kpi" x="474" y="292" width="230" height="62" fill="#FFFFFF" style="--d:0.75s"/><rect class="td-kpi" x="822" y="292" width="230" height="62" fill="#FFFFFF" style="--d:0.85s"/><rect class="td-kpi" x="1171" y="292" width="230" height="62" fill="#FFFFFF" style="--d:0.95s"/>
+      <rect class="td-bars" x="569" y="528" width="390" height="257" fill="#FFFFFF" style="--d:1.05s"/>
+      <rect class="td-bars" x="1077" y="529" width="403" height="186" fill="#FFFFFF" style="--d:1.25s"/>
+      <g class="td-toast">
+        <rect x="1100" y="366" width="440" height="92" rx="10" fill="#000000" fill-opacity="0.08" transform="translate(0 5)"/>
+        <rect x="1100" y="366" width="440" height="92" rx="10" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2"/>
+        <text class="td-t0" x="1126" y="425">🚆</text>
+        <text class="td-t1" x="1180" y="406">Retard prédit : 8,8 min</text>
+        <text class="td-t2" x="1180" y="436">Paris Lyon → Marseille · juillet 2024</text>
+      </g>
+      <g class="td-cursor"><path d="M0 0 L0 26 L7 20 L12 31 L17 29 L12 18 L21 18 Z" fill="#FFFFFF" stroke="#262730" stroke-width="2" stroke-linejoin="round"/></g>
+    </svg>
+  </div>
+</div>
+        <div class="card-body">
+          <div class="card-top"><span>tardis</span><span class="status">● Up (healthy)</span></div>
+          <h3>TARDIS</h3>
+          <p class="role">Projet d'équipe · data science</p>
+          <p class="desc">Analyse des retards SNCF de 2018 à 2025 et prédiction du retard d'un trajet avec un Random Forest, dans un dashboard Streamlit.</p>
+          <ul class="tags"><li>python</li><li>pandas</li><li>scikit-learn</li><li>streamlit</li></ul>
+          <a class="more" href="https://github.com/Lois5959/TARDIS" target="_blank" rel="noopener">voir sur GitHub ↗</a>
+        </div>
+      </article>
+      <article class="card" data-i="0">
+        <div class="illus game bw" role="img" aria-label="Nuage de mots d'Alice au pays des merveilles et terminal de Bookworm : thèmes du livre et livres similaires à Sherlock Holmes">
+  <div class="game-cam bw-cam">
+    <img src="assets/bookworm.webp" alt="" width="1600" height="900" decoding="async">
+    <svg class="game-fx" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+      <ellipse class="bw-word" cx="388" cy="150" rx="300" ry="110" fill="none" stroke="#4ADE80" stroke-width="5" style="--d:0.95s"/><ellipse class="bw-word" cx="750" cy="310" rx="230" ry="110" fill="none" stroke="#4ADE80" stroke-width="5" style="--d:1.13s"/><ellipse class="bw-word" cx="1055" cy="150" rx="230" ry="120" fill="none" stroke="#4ADE80" stroke-width="5" style="--d:1.31s"/><ellipse class="bw-word" cx="1300" cy="320" rx="300" ry="100" fill="none" stroke="#4ADE80" stroke-width="5" style="--d:1.49s"/>
+      <rect class="bw-cover" x="184" y="658" width="1232" height="43" fill="#0D1218" style="--d:0.15s;--t:0.6s;--s:30"/><rect class="bw-cover" x="184" y="701" width="1232" height="43" fill="#0D1218" style="--d:0.85s;--t:0.7s;--s:40"/><rect class="bw-cover" x="184" y="743" width="1232" height="43" fill="#0D1218" style="--d:1.75s;--t:0.6s;--s:32"/><rect class="bw-cover" x="184" y="786" width="1232" height="43" fill="#0D1218" style="--d:2.45s;--t:0.6s;--s:30"/>
+    </svg>
+  </div>
+</div>
+        <div class="card-body">
+          <div class="card-top"><span>bookworm</span><span class="status">● Up (healthy)</span></div>
+          <h3>Bookworm</h3>
+          <p class="role">NLP · ligne de commande</p>
+          <p class="desc">Analyse de livres du Projet Gutenberg : richesse du vocabulaire, thèmes, personnages, résumé et livres similaires grâce au TF-IDF.</p>
+          <ul class="tags"><li>python</li><li>spacy</li><li>nlp</li><li>tf-idf</li></ul>
+          <a class="more" href="https://github.com/Lois5959/ALICE-IN-WONDERLAND" target="_blank" rel="noopener">voir sur GitHub ↗</a>
+        </div>
+      </article>
+      <article class="card" data-i="1">
+        <div class="illus game gc" role="img" aria-label="Capture de Gym Connect : fil des séances avec les boutons Rejoindre, puis la conversation avec Marius qui s'ouvre">
+  <div class="game-cam gc-cam">
+    <img src="assets/gym.webp" alt="" width="1600" height="900" decoding="async">
+    <svg class="game-fx" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+      <rect class="gc-press" x="741" y="375" width="358" height="50" rx="8" fill="#0B1530"/>
+      <circle class="gc-ripple" cx="919" cy="400" r="30" fill="#FFFFFF"/>
+      <g class="gc-chat">
+        <rect x="770" y="490" width="790" height="380" rx="26" fill="#000000" fill-opacity="0.35" transform="translate(0 8)"/>
+        <rect x="770" y="490" width="790" height="380" rx="26" fill="#FFFFFF"/>
+        <path d="M770 516 a26 26 0 0 1 26 -26 h738 a26 26 0 0 1 26 26 v52 h-790 Z" fill="#2D427B"/>
+        <circle cx="822" cy="542" r="22" fill="#0E7490" stroke="#E5E7EB" stroke-width="3"/>
+        <text class="gc-ini" x="822" y="551" text-anchor="middle">M</text>
+        <text class="gc-name" x="860" y="551">Marius</text>
+        <text class="gc-sub" x="1530" y="550" text-anchor="end">Basic fit · Séance pec</text>
+        <g class="gc-me">
+          <rect x="1076" y="600" width="456" height="62" rx="20" fill="#2D427B"/>
+          <text class="gc-txt gc-txt-me" x="1304" y="640" text-anchor="middle">On se fait la séance pec à 18h ?</text>
+        </g>
+        <g class="gc-dots">
+          <rect x="800" y="690" width="120" height="58" rx="20" fill="#E5E7EB"/>
+          <circle class="gc-dot" cx="834" cy="719" r="8" fill="#6B7280" style="--d:0s"/>
+          <circle class="gc-dot" cx="860" cy="719" r="8" fill="#6B7280" style="--d:0.15s"/>
+          <circle class="gc-dot" cx="886" cy="719" r="8" fill="#6B7280" style="--d:0.3s"/>
+        </g>
+        <g class="gc-him">
+          <rect x="800" y="690" width="390" height="62" rx="20" fill="#E5E7EB"/>
+          <text class="gc-txt" x="995" y="730" text-anchor="middle">Grave, rdv à 18h 💪</text>
+        </g>
+        <rect x="800" y="790" width="730" height="54" rx="27" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="2"/>
+        <text class="gc-ph" x="830" y="824">Message...</text>
+      </g>
+      <g class="gc-cursor"><path d="M0 0 L0 26 L7 20 L12 31 L17 29 L12 18 L21 18 Z" fill="#FFFFFF" stroke="#0F172A" stroke-width="2" stroke-linejoin="round"/></g>
+    </svg>
+  </div>
+</div>
+        <div class="card-body">
+          <div class="card-top"><span>product-design</span><span class="status">● Up (healthy)</span></div>
+          <h3>Gym Connect</h3>
+          <p class="role">Product design · équipe de 4</p>
+          <p class="desc">Réseau social pour trouver un partenaire de séance : recherche utilisateur, personas et maquettes, puis un MVP React, Express et MySQL sous Docker Compose.</p>
+          <ul class="tags"><li>product design</li><li>react</li><li>express</li><li>docker</li></ul>
+          <a class="more" href="https://github.com/Lois5959/YOWL" target="_blank" rel="noopener">voir sur GitHub ↗</a>
         </div>
       </article>
     </div>
     <dl class="others">
-      <div><dt>codename</dt><dd>Agent LLM (Ollama) durci contre la prompt injection, 10 versions</dd></div>
-      <div><dt>tardis</dt><dd>Prédiction des retards SNCF · scikit-learn, dashboard Streamlit</dd></div>
-      <div><dt>bookworm</dt><dd>Moteur NLP en CLI : topics, entités, résumés de livres</dd></div>
-      <div><dt>product-design</dt><dd>Réseau social : de la recherche utilisateur au MVP</dd></div>
+      <div><dt><a href="https://github.com/Lois5959/NEXTBUY" target="_blank" rel="noopener">nextbuy ↗</a></dt><dd>Analyse de millions de commandes d'un supermarché en ligne · pandas, scikit-learn</dd></div>
+      <div><dt><a href="https://github.com/Lois5959/ELIZA" target="_blank" rel="noopener">eliza ↗</a></dt><dd>Chatbot local qui conseille restos et sorties à Lille selon la météo · Ollama, Discord</dd></div>
+      <div><dt><a href="https://github.com/Lois5959/HACK-JUICE" target="_blank" rel="noopener">hack-juice ↗</a></dt><dd>14 rapports de pentest sur OWASP Juice Shop · Burp Suite</dd></div>
     </dl>
   </div>
 </section>
@@ -959,6 +1192,19 @@ section { scroll-margin-top: 80px; }
       <li class="entry" style="--i:2"><span class="node" aria-hidden="true"></span><span class="date">2025 → 2028</span><div class="entry-body"><h3>Bachelor · Epitech Lille</h3><p>Spécialité Web, Cloud &amp; Blockchain, avec un Master of Science spécialité Cloud en ligne de mire.</p></div></li>
       <li class="entry" style="--i:3"><span class="node" aria-hidden="true"></span><span class="date">2023 → 2024</span><div class="entry-body"><h3>Testeur logiciel · M2i, ISTQB</h3><p>Tests manuels et méthodes qualité, certification ISTQB Foundation, après la Nurserie numérique d'EuraTechnologies.</p></div></li>
     </ol>
+  </div>
+</section>
+
+<section class="sec" id="loisirs">
+  <div class="wrap">
+    <div class="sec-head"><h2>En dehors du code</h2><span class="cmd">$ ls ~/hors-du-code</span></div>
+    <ul class="hobbies">
+      <li class="hobby hb-boxe" style="--i:0"><span class="hb-emoji" aria-hidden="true">🥊</span><h3>Boxe thaï</h3><p>Discipline, cardio et sang-froid : garder la tête froide quand ça chauffe.</p></li>
+      <li class="hobby hb-basket" style="--i:1"><span class="hb-emoji" aria-hidden="true">🏀</span><h3>Basketball</h3><p>Le jeu collectif : lire le jeu, communiquer et faire briller l'équipe.</p></li>
+      <li class="hobby hb-cine" style="--i:2"><span class="hb-emoji" aria-hidden="true">🎬</span><h3>Cinéma</h3><p>Une bonne histoire sur grand écran, et le débat qui suit en sortant de la salle.</p></li>
+      <li class="hobby hb-voyage" style="--i:3"><span class="hb-emoji" aria-hidden="true">✈️</span><h3>Voyage</h3><p>D'autres pays, d'autres cultures et d'autres façons de faire.</p></li>
+      <li class="hobby hb-rando" style="--i:4"><span class="hb-emoji" aria-hidden="true">🥾</span><h3>Randonnée</h3><p>Couper les écrans, marcher et prendre de la hauteur.</p></li>
+    </ul>
   </div>
 </section>
 
@@ -1107,12 +1353,12 @@ section { scroll-margin-top: 80px; }
         if (!en.isIntersecting) return;
         const el = en.target;
         io.unobserve(el);
-        if (el.classList.contains('stack-card')) el.classList.add('is-listed');
+        if (el.classList.contains('stack-card') || el.classList.contains('hobbies')) el.classList.add('is-listed');
         else if (el.classList.contains('log')) el.classList.add('is-drawn');
         else if (el.classList.contains('card')) boot(el);
       });
     }, { threshold: 0.25 });
-    $$('.stack-card, .log, .card').forEach((el) => io.observe(el));
+    $$('.stack-card, .log, .card, .hobbies').forEach((el) => io.observe(el));
   }
 
   /* Copier l'adresse e-mail */
